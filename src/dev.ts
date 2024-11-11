@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
-import { createGetLoadContextArgs, defaultGetLoadContext } from './remix'
-import type { GetLoadContext } from './remix'
+import { createGetLoadContextArgs, defaultGetLoadContext } from './react'
+import type { GetLoadContext } from './react'
 
 type Options = {
   getLoadContext: GetLoadContext
@@ -15,9 +15,9 @@ export const handle = (userApp?: Hono, options?: Options) => {
 
   app.all('*', async (c) => {
     // @ts-expect-error it's not typed
-    const build = await import('virtual:remix/server-build')
-    const { createRequestHandler } = await import('@remix-run/cloudflare')
-    const handler = createRequestHandler(build, 'development')
+    const build = await import('virtual:react-router/server-build')
+    const { createRequestHandler } = await import('react-router')
+    const handler = createRequestHandler(build)
 
     const getLoadContext = options?.getLoadContext ?? defaultGetLoadContext
     const args = createGetLoadContextArgs(c)

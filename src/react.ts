@@ -1,5 +1,5 @@
-import type { AppLoadContext } from '@remix-run/cloudflare'
 import type { Context } from 'hono'
+import type { AppLoadContext } from 'react-router'
 
 export type GetLoadContext = (args: {
   request: Request

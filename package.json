@@ -1,11 +1,10 @@
 {
-  "name": "hono-remix-adapter",
-  "version": "0.4.1",
+  "name": "hono-react-adapter",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "test": "npm run test:e2e",
     "test:e2e": "npm run test:e2e:cloudflare-pages",
-    "test:e2e:cloudflare-pages": "npm run test:e2e -w example-cloudflare-pages",
     "build": "tsup",
     "watch": "tsup --watch",
     "lint": "eslint src examples/cloudflare-pages/app examples/cloudflare-pages/server examples/cloudflare-workers/app examples/cloudflare-workers/server",
@@ -19,17 +18,12 @@
   ],
   "workspaces": [
     "/",
-    "./examples/cloudflare-pages",
     "./examples/cloudflare-workers"
   ],
   "exports": {
     "./vite": {
       "types": "./dist/vite-plugin.d.ts",
       "import": "./dist/vite-plugin.js"
-    },
-    "./cloudflare-pages": {
-      "types": "./dist/handlers/cloudflare-pages.d.ts",
-      "import": "./dist/handlers/cloudflare-pages.js"
     },
     "./cloudflare-workers": {
       "types": "./dist/handlers/cloudflare-workers.d.ts",
@@ -50,11 +44,12 @@
     "@cloudflare/vitest-pool-workers": "^0.4.23",
     "@cloudflare/workers-types": "^4.20240815.0",
     "@hono/eslint-config": "^1.0.1",
-    "@remix-run/cloudflare": "^2.14.0",
+    "@react-router/cloudflare": "^7.0.0-pre.5",
     "eslint": "^9.10.0",
     "hono": "^4.5.11",
     "np": "^10.0.7",
     "publint": "^0.2.10",
+    "react-router": "^7.0.0-pre.5",
     "tsup": "^8.2.4",
     "vite": "^5.4.3",
     "vitest": "1.5.0",
@@ -67,7 +62,6 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@hono/vite-dev-server": "^0.17.0",
-    "remix-hono": "^0.0.16"
+    "@hono/vite-dev-server": "^0.17.0"
   }
 }

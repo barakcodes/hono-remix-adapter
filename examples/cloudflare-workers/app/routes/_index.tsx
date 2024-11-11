@@ -1,5 +1,4 @@
-import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { useLoaderData } from '@remix-run/react'
+import {type  LoaderFunctionArgs, useLoaderData } from 'react-router'
 
 export const loader = (args: LoaderFunctionArgs) => {
   const extra = args.context.extra

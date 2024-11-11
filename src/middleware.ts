@@ -1,8 +1,8 @@
-import type { ServerBuild } from '@remix-run/cloudflare'
-import { createRequestHandler } from '@remix-run/cloudflare'
 import { createMiddleware } from 'hono/factory'
-import { createGetLoadContextArgs } from './remix'
-import type { GetLoadContext } from './remix'
+import type {  ServerBuild } from 'react-router'
+import { createRequestHandler} from 'react-router'
+import { createGetLoadContextArgs } from './react'
+import type { GetLoadContext } from './react'
 
 interface RemixMiddlewareOptions {
   build: ServerBuild

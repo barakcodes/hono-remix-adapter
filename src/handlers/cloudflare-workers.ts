@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { remix } from '../middleware'
-import { defaultGetLoadContext } from '../remix'
-import type { GetLoadContext } from '../remix'
+import { defaultGetLoadContext } from '../react'
+import type { GetLoadContext } from '../react'
 
 type Options = {
   getLoadContext: GetLoadContext
