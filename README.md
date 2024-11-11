@@ -1,4 +1,4 @@
-# hono-remix-adapter
+# hono-react-adapter
 
 `hono-remix-adapter` is a set of tools for adapting between Hono and Remix. It is composed of a Vite plugin and handlers that enable it to support platforms like Cloudflare Workers. You can create an Hono app, and it will be applied to your Remix app.
 
@@ -26,7 +26,7 @@ This means you can create API routes with Hono's syntax and use a lot of Hono's 
 
 > [!WARNING]
 >
-> `hono-remix-adapter` is currently unstable. The API may be changed without announcement in the future.
+> `hono-react-adapter` is currently unstable. The API may be changed without announcement in the future.
 
 ## Install
 
@@ -40,7 +40,7 @@ Edit your `vite.config.ts`:
 
 ```ts
 // vite.config.ts
-import serverAdapter from 'hono-remix-adapter/vite'
+import serverAdapter from '@barakcodes/hono-react-adapter/vite'
 
 export default defineConfig({
   plugins: [
@@ -73,7 +73,7 @@ To support Cloudflare Workers and Cloudflare Pages, add the adapter in `@hono/vi
 ```ts
 // vite.config.ts
 import adapter from '@hono/vite-dev-server/cloudflare'
-import serverAdapter from 'hono-remix-adapter/vite'
+import serverAdapter from '@barakcodes/hono-react-adapter/vite'
 
 export default defineConfig({
   plugins: [
@@ -91,7 +91,7 @@ To deploy your app to Cloudflare Workers, you can write the following handler on
 
 ```ts
 // worker.ts
-import handle from 'hono-remix-adapter/cloudflare-workers'
+import handle from '@barakcodes/hono-react-adapter/cloudflare-workers'
 import * as build from './build/server'
 import app from './server'
 
@@ -107,27 +107,14 @@ main = "./worker.ts"
 assets = { directory = "./build/client" }
 ```
 
-## Cloudflare Pages
-
-To deploy your app to Cloudflare Pages, you can write the following handler on `functions/[[path]].ts`:
-
-```ts
-// functions/[[path]].ts
-import handle from 'hono-remix-adapter/cloudflare-pages'
-import * as build from '../build/server'
-import server from '../server'
-
-export const onRequest = handle(build, server)
-```
-
 ## `getLoadContext`
 
 If you want to add extra context values when you use Remix routes, like in the following use case:
 
 ```ts
 // app/routes/_index.tsx
-import type { LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { useLoaderData } from '@remix-run/react'
+import type { LoaderFunctionArgs } from '@react-router/cloudflare'
+import { useLoaderData } from 'react-router'
 
 export const loader = ({ context }) => {
   return { extra: context.extra }
@@ -143,7 +130,7 @@ First, create the `getLoadContext` function and export it:
 
 ```ts
 // load-context.ts
-import type { AppLoadContext } from '@remix-run/cloudflare'
+import type { AppLoadContext } from '@react-router/cloudflare'
 import type { PlatformProxy } from 'wrangler'
 
 type Cloudflare = Omit<PlatformProxy, 'dispose'>
@@ -173,15 +160,15 @@ Then import the `getLoadContext` and add it to the `serverAdapter` as an argumen
 ```ts
 // vite.config.ts
 import adapter from '@hono/vite-dev-server/cloudflare'
-import { vitePlugin as remix } from '@remix-run/dev'
-import serverAdapter from 'hono-remix-adapter/vite'
+import { reactRouter } from '@react-router/dev/vite'
+import serverAdapter from '@barakcodes/hono-react-adapter/vite'
 import { defineConfig } from 'vite'
 import { getLoadContext } from './load-context'
 
 export default defineConfig({
   plugins: [
     // ...
-    remix(),
+    reactRouter(),
     serverAdapter({
       adapter,
       getLoadContext,
@@ -195,24 +182,12 @@ For Cloudflare Workers, you can add it to the `handler` function:
 
 ```ts
 // worker.ts
-import handle from 'hono-remix-adapter/cloudflare-workers'
+import handle from '@barakcodes/hono-react-adapter/cloudflare-workers'
 import * as build from './build/server'
 import { getLoadContext } from './load-context'
 import app from './server'
 
 export default handle(build, app, { getLoadContext })
-```
-
-You can also add it for Cloudflare Pages:
-
-```ts
-// functions/[[path]].ts
-import handle from 'hono-remix-adapter/cloudflare-pages'
-import { getLoadContext } from 'load-context'
-import * as build from '../build/server'
-import server from '../server'
-
-export const onRequest = handle(build, server, { getLoadContext })
 ```
 
 This way is almost the same as [Remix](https://remix.run/docs/en/main/guides/vite#augmenting-load-context).
