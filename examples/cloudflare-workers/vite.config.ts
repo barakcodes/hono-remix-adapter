@@ -2,7 +2,7 @@
 import adapter from '@hono/vite-dev-server/cloudflare'
 import { reactRouter } from '@react-router/dev/vite'
 import { cloudflareDevProxy } from '@react-router/dev/vite/cloudflare'
-import serverAdapter from 'hono-react-adapter/vite'
+import serverAdapter from '@barakcodes/hono-react-adapter/vite'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { getLoadContext } from './load-context'

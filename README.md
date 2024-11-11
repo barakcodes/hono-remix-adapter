@@ -1,6 +1,9 @@
-# hono-react-adapter
+# @barakcodes/hono-react-adapter
+> [!WARNING]
+>
+> This is a fork of [hono-remix-adapter](https://github.com/yusukebe/hono-remix-adapter), hopefully temporary until react router 7 is officially adopted.
 
-`hono-remix-adapter` is a set of tools for adapting between Hono and Remix. It is composed of a Vite plugin and handlers that enable it to support platforms like Cloudflare Workers. You can create an Hono app, and it will be applied to your Remix app.
+`@barakcodes/hono-react-adapter` is a set of tools for adapting between Hono and Remix. It is composed of a Vite plugin and handlers that enable it to support platforms like Cloudflare Workers. You can create an Hono app, and it will be applied to your Remix app.
 
 ```ts
 // server/index.ts
@@ -26,12 +29,12 @@ This means you can create API routes with Hono's syntax and use a lot of Hono's 
 
 > [!WARNING]
 >
-> `hono-react-adapter` is currently unstable. The API may be changed without announcement in the future.
+> `@barakcodes/hono-react-adapter` is currently unstable. The API may be changed without announcement in the future.
 
 ## Install
 
 ```bash
-npm i hono-remix-adapter
+npm i @barakcodes/hono-react-adapter
 ```
 
 ## How to use
@@ -135,7 +138,7 @@ import type { PlatformProxy } from 'wrangler'
 
 type Cloudflare = Omit<PlatformProxy, 'dispose'>
 
-declare module '@remix-run/cloudflare' {
+declare module '@react-router/cloudflare' {
   interface AppLoadContext {
     cloudflare: Cloudflare
     extra: string
